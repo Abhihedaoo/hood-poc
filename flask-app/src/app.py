@@ -1,4 +1,4 @@
-from flask import Flask, Response, jsonify
+from flask import Flask, Response, jsonify, request
 from flask_cors import CORS, cross_origin
 import json
 
@@ -15,45 +15,72 @@ def create_app(env_name):
 
   @app.route('/', methods=['GET'])
   @cross_origin()
-  def getData():
-    return 'flask appp working'
+  def get_data():
+    return 'flask app working'
 
 
-  @app.route('/getPods', methods=['GET'])
+
+  @app.route('/namespaces', methods=['GET'])
   @cross_origin()
-  def getPods():
-    allPodsList = KR.getAllPods()
+  def get_list_of_namespaces():
+    all_namespaces = PR.get_namespaces()
     return Response(
       mimetype="application/json",
-      response=allPodsList,
+      response=all_namespaces,
       status=200
     )
 
-  @app.route('/getNamespaces', methods=['GET'])
+  
+  @app.route('/services', methods=['GET'])
   @cross_origin()
-  def getNamespaces():
-    allNamespaceList = KR.getAllNamespaces()
+  def get_services_by_namespace():
+    namespace = request.args.get('namespace')
+    if namespace is None:
+      services = PR.get_services()
+    else:
+      services = PR.get_services_by_namespace(namespace)
     return Response(
       mimetype="application/json",
-      response=allNamespaceList,
+      response=services,
       status=200
     )
 
-  @app.route('/getServices', methods=['GET'])
+
+  @app.route('/populatenamespaces', methods=['GET'])
   @cross_origin()
-  def getServices():
-    allServiceList = KR.getAllServices()
+  def populate_namespaces():
+    PR.populate_namespace()
     return Response(
       mimetype="application/json",
-      response=allServiceList,
+      response={
+        "populated the namespaces",
+      },
       status=200
     )
 
-  @app.route('/populateNamespaces', methods=['GET'])
-  @cross_origin()
-  def populateNamespaces():
-    PR.populateNamespaces()
-    return 'Populate'
 
+  @app.route('/populateservices', methods=['GET'])
+  @cross_origin()
+  def populate_service():
+    PR.populate_services()
+    return Response(
+      mimetype="application/json",
+      response={
+        "populated servies"
+      }
+    )
+
+  
+  @app.route('/createtables', methods=['GET'])
+  @cross_origin()
+  def create_table():
+    PR.create_table()
+    return Response(
+      mimetype="application/json",
+      response={
+        "Tables created"
+      },
+      status=200
+    )
 
   return app

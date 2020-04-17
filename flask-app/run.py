@@ -1,5 +1,8 @@
-from os import path
+import sys
+sys.path.insert(0, '/src')
+
 from src.app import create_app
+
 
 if __name__ == '__main__':
   env_name= 'developement'
