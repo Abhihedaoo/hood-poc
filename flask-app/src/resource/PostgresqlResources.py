@@ -8,7 +8,7 @@ conn = psycopg2.connect(
          database="kubernetes",
          user="postgres",
          password="postgres",
-         host="postgres",
+         host="postgres-postgresql",
          port="5432"
        )
 
