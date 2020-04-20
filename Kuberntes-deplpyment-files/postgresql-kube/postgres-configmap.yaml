@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: common
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: kubernetes
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres

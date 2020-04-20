@@ -38,7 +38,7 @@ def get_namespaces():
   namespaces = []
   while row is not None:
     print(row[0])
-    namespaces.append(NM.NamespaceModel(str(row[0]), str(row[1])))
+    namespaces.append(NM.NamespaceModel(str(row[1]), str(row[0])))
     row = cur.fetchone()
     
   jsonStr = json.dumps([namespace.toJSON() for namespace in namespaces])
