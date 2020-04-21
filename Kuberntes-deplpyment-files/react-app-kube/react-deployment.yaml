@@ -19,4 +19,4 @@ spec:
       - name: react
         image: "gcr.io/testing-project-272008/react:hood"
         ports:
-        - containerPort: 3000
+        - containerPort: 80
