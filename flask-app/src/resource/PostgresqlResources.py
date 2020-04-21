@@ -18,15 +18,15 @@ def populate_namespace():
   namespaces = KR.get_all_namespaces()
   for namespace in namespaces:
     print(str(namespace.name))
-    sql = "INSERT INTO namespaces VALUES(%s, %s)"
+    sql = "INSERT INTO namespaces (name, uid) VALUES(%s, %s)"
     cur.execute(sql, (namespace.name, namespace.uid,))
-    conn.commit()
+  conn.commit()
 
 
 def populate_services():
   services = KR.get_all_services()
   for service in services:
-    sql = "INSERT INTO services VALUES(%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO services (name, namespaces, port_name, port, protocol) VALUES(%s, %s, %s, %s, %s)"
     cur.execute(sql, (service.name, service.namespace, service.port_name, service.port, service.protocol,))
     conn.commit()
 
@@ -70,11 +70,9 @@ def get_services_by_namespace(namespace):
   jsonStr = json.dumps([service.toJSON() for service in services])
   return jsonStr
 
-    
-
 
 def create_table():
   cur.execute('CREATE TABLE namespaces (name TEXT PRIMARY KEY NOT NULL, uid TEXT NOT NULL)')
   conn.commit()
-  cur.execute('CREATE TABLE services (name TEXT PRIMARY KEY NOT NULL, namespace TEXT NOT NULL, port_name TEXT, port TEXT, protocol TEXT);')
+  cur.execute('CREATE TABLE services (name TEXT PRIMARY KEY NOT NULL, namespace TEXT NOT NULL, port_name TEXT, port TEXT, protocol TEXT)')
   conn.commit()

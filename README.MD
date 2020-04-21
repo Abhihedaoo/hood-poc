@@ -2,12 +2,18 @@
 kubectl create ns nginx
 kubectl create ns common
 
+kubectl create serviceaccount common --namespace common
+
+
+
 helm3 install nginx stable/nginx-ingress --namespace nginx --set rbac.create=true --set controller.publishService.enabled=true
 
 
 helm3 repo add bitnami https://charts.bitnami.com/bitnami
 
 helm3 install postgres bitnami/postgresql --namespace common --set global.postgresql.postgresqlDatabase=kubernetes --set global.postgresql.postgresqlUsername=postgres --set global.postgresql.postgresqlPassword=postgres
+
+
 
 
 ###########
@@ -29,3 +35,5 @@ and -- psql --host postgres-postgresql -U postgres -d postgres -p 5432
 To connect to your database from outside the cluster execute the following commands:
     kubectl port-forward --namespace common svc/postgres-postgresql 5432:5432 &
     PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432
+
+
