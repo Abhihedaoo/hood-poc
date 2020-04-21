@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: react
-        image: "gcr.io/testing-project-272008/react:hood"
+        image: "gcr.io/testing-project-272008/react:nginx"
         ports:
         - containerPort: 80
