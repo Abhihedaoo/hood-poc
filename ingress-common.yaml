@@ -11,5 +11,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: react
-          servicePort: 3000
+          serviceName: entrypt
+          servicePort: 81
