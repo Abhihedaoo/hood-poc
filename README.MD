@@ -2,7 +2,7 @@
 kubectl create ns nginx
 kubectl create ns common
 
-kubectl create serviceaccount common --namespace common
+<!-- kubectl create serviceaccount common --namespace common -->
 
 
 
