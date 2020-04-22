@@ -1,0 +1,59 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: hoodapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hoodapp
+  template:
+    metadata:
+      labels:
+        app: hoodapp
+    spec:
+      containers:
+      - name: nginx
+        image: gcr.io/testing-project-272008/react:hood
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: hoodapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hoodapp
+  template:
+    metadata:
+      labels:
+        app: hoodapp
+    spec:
+      containers:
+      - name: nginx
+        image: gcr.io/testing-project-272008/flask:hood
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: entrypt
+spec:
+  type: LoadBalancer
+  ports:
+  - name: backend
+    port: 8080
+    targetPort: 5000
+  - name: frontend
+    port: 81
+    targetPort: 80
+  selector:
+    app: hoodapp

@@ -9,7 +9,13 @@ spec:
   rules:
   - http: 
       paths:
+      - path: /api
+        backend:
+          serviceName: backend
+          servicePort: 31064
       - path: /
         backend:
-          serviceName: react
-          servicePort: 3000
+          serviceName: frontend
+          servicePort: 31064
+
+        

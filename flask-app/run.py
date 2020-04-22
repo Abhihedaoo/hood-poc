@@ -8,4 +8,4 @@ if __name__ == '__main__':
   env_name= 'developement'
   app = create_app(env_name)
   #run app
-  app.run()
+  app.run(host='0.0.0.0')

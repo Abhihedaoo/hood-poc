@@ -13,8 +13,9 @@ class NamespaceList extends Component {
   }
 
   componentDidMount() {
+    var url = "http://"+window.location.hostname+":8000/namespaces"
     axios
-      .get("http://flaskapp:5000/namespaces")
+      .get(url)
       .then((response) => {
         console.log(response);
         this.setState({ namespaces: response.data });
