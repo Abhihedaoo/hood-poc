@@ -4,16 +4,16 @@ metadata:
   name: frontend
   namespace: common
   labels:
-    app: frontend
+    app: hoodapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: hoodapp
   template:
     metadata:
       labels:
-        app: frontend
+        app: hoodapp
     spec:
       containers:
       - name: nginx
@@ -27,16 +27,16 @@ metadata:
   name: backend
   namespace: common
   labels:
-    app: backend
+    app: hoodapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: hoodapp
   template:
     metadata:
       labels:
-        app: backend
+        app: hoodapp
     spec:
       containers:
       - name: nginx
@@ -47,28 +47,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: entrypt
   namespace: common
 spec:
-  type: LoadBalancer
-  ports:
-  - name: frontend
-    port: 81
-    targetPort: 80
-  selector:
-    app: frontend
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend
-  namespace: common
-spec: 
   type: LoadBalancer
   ports:
   - name: backend
     port: 8000
     targetPort: 5000
+  - name: frontend
+    port: 81
+    targetPort: 80
   selector:
-    app: backend
-
+    app: hoodapp

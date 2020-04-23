@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: ingress-resource
@@ -9,13 +9,11 @@ spec:
   rules:
   - http: 
       paths:
-      - path: /api
-        backend:
-          serviceName: backend
-          servicePort: 31064
       - path: /
         backend:
-          serviceName: frontend
-          servicePort: 31064
-
-        
+          serviceName: entrypt
+          servicePort: 81
+      - path: /namespaces
+        backend:  
+          serviceName: entrypt
+          servicePort: 8000 
