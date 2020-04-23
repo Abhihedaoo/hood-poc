@@ -13,7 +13,7 @@ class NamespaceList extends Component {
   }
 
   componentDidMount() {
-    var url = "http://"+window.location.hostname+":8000/namespaces"
+    var url = "http://"+window.location.hostname+"/namespaces"
     axios
       .get(url)
       .then((response) => {
